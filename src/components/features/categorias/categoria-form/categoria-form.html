@@ -1,0 +1,44 @@
+<div class="mb-3"></div>
+<div class="container">
+  <div class="card border-success text-center">
+    <div class="card-header text-primary text-center">
+      <h2 class="card-title">
+        {{ titulo }}
+      </h2>
+    </div>
+    <div class="card-body text-primary">
+      <form>
+        <div class="form-control">
+          <label for="nombreCategoria" class="form-label">Nombre de la Categoria</label>
+          <input
+            type="text"
+            class="form-control"
+            id="nombreCategoria"
+            name="nombreCategoria"
+            placeholder="Nombre de la Categoria"
+            maxlength="50"
+            [(ngModel)]="laCategoria().nombreCategoria"
+          />
+        </div>
+        <div class="form-control">
+          <label for="descripcion" class="form-label">Descripcion</label>
+          <input
+            type="text"
+            class="form-control"
+            id="descripcion"
+            name="descripcion"
+            placeholder="Descripcion"
+            maxlength="50"
+            [(ngModel)]="laCategoria().descripcionCategoria"
+          />
+        </div>
+        <button type="button" class="btn btn-outline-success" (click)="registrarCategoria()">
+          Registrar
+        </button>
+        <button type="button" class="btn btn-outline-success" (click)="actualizarCategoria()">
+          Actualizar
+        </button>
+      </form>
+    </div>
+  </div>
+</div>

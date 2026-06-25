@@ -1,0 +1,46 @@
+<div class="mb-3"></div>
+<div class="container">
+  <div class="card border-success text-center">
+    <div class="card-header text-primary">
+      <h1 class="card-title">
+        {{ titulo }}
+      </h1>
+    </div>
+
+    <div class="card-body text-primary">
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>idCategoria</th>
+            <th>nombre</th>
+            <th>descripcion</th>
+            <th colspan="2">acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (lc of listaDeCategorias(); track lc.idCategoria) {
+            <tr>
+              <td>{{ lc.idCategoria }}</td>
+              <td>{{ lc.nombreCategoria }}</td>
+              <td>{{ lc.descripcionCategoria }}</td>
+              <td>
+                <button class="btn btn-outline-success" (click)="actualizarCategoria(lc)">
+                  Actualizar
+                </button>
+              </td>
+              <td>
+                <button class="btn btn-outline-danger" (click)="eliminarCategoria(lc)">
+                  Eliminar
+                </button>
+              </td>
+            </tr>
+          } @empty {
+            <tr>
+              <td><div class="alert alert-primary">No Existen documentos</div></td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
