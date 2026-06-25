@@ -22,7 +22,11 @@ export class CategoriaService {
   }
 
   crearCategoria(categoria: Categoria): Observable<Categoria> {
-    return this.http.post<Categoria>(this.urlEndpoint, categoria, { headers: this.httpHeaders });
+    const payload = { ...categoria };
+    if (payload.idCategoria === 0) {
+      (payload as any).idCategoria = null;
+    }
+    return this.http.post<Categoria>(this.urlEndpoint, payload, { headers: this.httpHeaders });
   }
 
   actualizarCategoria(categoria: Categoria): Observable<Categoria> {

@@ -1,10 +1,11 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, inject, OnInit, ChangeDetectorRef } from '@angular/core';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { ProductoService } from '../../../../app/service/producto-service';
 import { CategoriaService } from '../../../../app/service/categoria-service';
 import { Producto } from '../../../../model/producto';
 import { Categoria } from '../../../../model/categoria';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-producto-form',
@@ -18,6 +19,7 @@ export class ProductoForm implements OnInit {
   private categoriaService = inject(CategoriaService);
   private route = inject(ActivatedRoute);
   private router = inject(Router);
+  private cdr = inject(ChangeDetectorRef);
 
   producto: Producto = new Producto();
   categorias: Categoria[] = [];
@@ -26,7 +28,10 @@ export class ProductoForm implements OnInit {
 
   ngOnInit(): void {
     this.categoriaService.mostrarCategorias().subscribe({
-      next: (data) => (this.categorias = data),
+      next: (data) => {
+        this.categorias = data;
+        this.cdr.detectChanges();
+      },
       error: (err) => console.error('Error al cargar categorías:', err),
     });
 
@@ -37,6 +42,7 @@ export class ProductoForm implements OnInit {
         next: (data) => {
           this.producto = data;
           this.categoriaSeleccionada = data.idCategoria?.idCategoria ?? 0;
+          this.cdr.detectChanges();
         },
         error: (err) => console.error('Error al cargar producto:', err),
       });
@@ -44,17 +50,36 @@ export class ProductoForm implements OnInit {
   }
 
   guardar(): void {
-    this.producto.idCategoria = { idCategoria: this.categoriaSeleccionada };
+    if (!this.categoriaSeleccionada || Number(this.categoriaSeleccionada) === 0) {
+      Swal.fire('Atención', 'Por favor, selecciona una categoría válida antes de guardar.', 'warning');
+      return;
+    }
+
+    this.producto.idCategoria = { idCategoria: Number(this.categoriaSeleccionada) };
 
     if (this.esEdicion) {
       this.productoService.actualizarProducto(this.producto.idProducto, this.producto).subscribe({
-        next: () => this.router.navigate(['/listaProductos']),
-        error: (err) => console.error('Error al actualizar:', err),
+        next: () => {
+          Swal.fire('Éxito', 'Producto actualizado exitosamente.', 'success').then(() => {
+            this.router.navigate(['/listaProductos']);
+          });
+        },
+        error: (err) => {
+          console.error('Error al actualizar:', err);
+          Swal.fire('Error', 'Error al actualizar el producto.', 'error');
+        },
       });
     } else {
       this.productoService.crearProducto(this.producto).subscribe({
-        next: () => this.router.navigate(['/listaProductos']),
-        error: (err) => console.error('Error al crear:', err),
+        next: () => {
+          Swal.fire('Éxito', 'Producto guardado exitosamente.', 'success').then(() => {
+            this.router.navigate(['/listaProductos']);
+          });
+        },
+        error: (err) => {
+          console.error('Error al crear:', err);
+          Swal.fire('Error', 'Error al guardar el producto.', 'error');
+        },
       });
     }
   }

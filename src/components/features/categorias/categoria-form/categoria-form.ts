@@ -37,33 +37,49 @@ export class CategoriaForm implements OnInit {
   }
 
   registrarCategoria(): void {
-    this.service.crearCategoria(this.laCategoria()).subscribe({
+    const cat = this.laCategoria();
+    if (!cat.nombreCategoria || cat.nombreCategoria.trim() === '') {
+      Swal.fire('Error', 'El nombre de la categoría es obligatorio', 'warning');
+      return;
+    }
+
+    this.service.crearCategoria(cat).subscribe({
       next: (lc) => {
-        this.router.navigate(['/listaCategorias']);
         Swal.fire({
           title: 'Registrar Categoria',
           text: `La categoria ${lc.nombreCategoria} ha sido registrada correctamente!`,
-          icon: 'info',
+          icon: 'success',
+        }).then(() => {
+          this.router.navigate(['/listaCategorias']);
         });
       },
       error: (err) => {
-        console.error(err);
+        console.error('Error al registrar:', err);
+        Swal.fire('Error', 'Ocurrió un error al registrar la categoría', 'error');
       },
     });
   }
 
   actualizarCategoria(): void {
-    this.service.actualizarCategoria(this.laCategoria()).subscribe({
+    const cat = this.laCategoria();
+    if (!cat.nombreCategoria || cat.nombreCategoria.trim() === '') {
+      Swal.fire('Error', 'El nombre de la categoría es obligatorio', 'warning');
+      return;
+    }
+
+    this.service.actualizarCategoria(cat).subscribe({
       next: (lc) => {
-        this.router.navigate(['/listaCategorias']);
         Swal.fire({
-          title: ' Actualizar Categoria',
+          title: 'Actualizar Categoria',
           text: `La categoria ${lc.nombreCategoria} ha sido actualizada correctamente!`,
-          icon: 'info',
+          icon: 'success',
+        }).then(() => {
+          this.router.navigate(['/listaCategorias']);
         });
       },
       error: (err) => {
-        console.error(err);
+        console.error('Error al actualizar:', err);
+        Swal.fire('Error', 'Ocurrió un error al actualizar la categoría', 'error');
       },
     });
   }

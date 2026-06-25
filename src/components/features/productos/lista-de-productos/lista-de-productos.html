@@ -19,13 +19,13 @@
           </tr>
         </thead>
         <tbody>
-          @for (p of productos; track p.idProducto) {
+          @for (p of productos(); track p.idProducto) {
             <tr>
               <td>{{ p.idProducto }}</td>
               <td>{{ p.nombreProducto }}</td>
               <td>{{ p.precioProducto | currency }}</td>
               <td>{{ p.existencia }}</td>
-              <td>{{ p.idCategoria?.idCategoria }}</td>
+              <td>{{ p.idCategoria?.nombreCategoria || p.idCategoria?.idCategoria }}</td>
               <td>
                 <a [routerLink]="['/productoForm', p.idProducto]" class="btn btn-outline-success">
                   Actualizar

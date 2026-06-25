@@ -18,7 +18,11 @@ export class ProductoService {
   }
 
   crearProducto(producto: Producto): Observable<Producto> {
-    return this.http.post<Producto>(this.urlEndpoint, producto, { headers: this.httpHeaders });
+    const payload = { ...producto };
+    if (payload.idProducto === 0) {
+      (payload as any).idProducto = null;
+    }
+    return this.http.post<Producto>(this.urlEndpoint, payload, { headers: this.httpHeaders });
   }
 
   actualizarProducto(id: number, producto: Producto): Observable<Producto> {

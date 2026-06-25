@@ -11,5 +11,5 @@ import { Header } from '../shared/header/header';
 })
 export class App {
   protected readonly title = signal('Ejercicio1');
-  autor = 'Malva'; // Placeholder for the author's name
+  autor = 'Malvaez Sánchez Diego'; // Placeholder for the author's name
 }

@@ -34,12 +34,7 @@ export class ListaDeCategorias implements OnInit {
   }
 
   actualizarCategoria(categoria: Categoria): void {
-    console.log('Actualizar categoria', categoria);
-    Swal.fire({
-      title: 'Actualizar Categoria',
-      text: `La categoria ${categoria.nombreCategoria} ha sido actualizada correctamente!`,
-      icon: 'info',
-    });
+    console.log('Navegando a formulario para actualizar categoria', categoria);
     this.router.navigate(['/categoriaForm', categoria.idCategoria]);
   }
 

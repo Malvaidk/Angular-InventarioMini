@@ -5,5 +5,5 @@ export class Producto {
   existencia: number = 0;
   descripcionProducto: string = '';
   createAt: string | null = null;
-  idCategoria: { idCategoria: number } | null = null;
+  idCategoria: { idCategoria: number, nombreCategoria?: string } | null = null;
 }
