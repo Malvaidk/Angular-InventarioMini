@@ -4,6 +4,7 @@ import { CategoriaForm } from '../components/features/categorias/categoria-form/
 import { Home } from '../shared/home/home';
 import { ListaDeProductos } from '../components/features/productos/lista-de-productos/lista-de-productos';
 import { ProductoForm } from '../components/features/productos/producto-form/producto-form';
+import { EmailForm } from '../components/features/email/email-form';
 
 export const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
@@ -13,4 +14,5 @@ export const routes: Routes = [
   { path: 'categoriaForm/:id', component: CategoriaForm },
   { path: 'listaProductos', component: ListaDeProductos },
   { path: 'productoForm/:id', component: ProductoForm },
+  { path: 'email', component: EmailForm },
 ];

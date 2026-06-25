@@ -1,0 +1,8 @@
+{
+  "/api/v1/mail/*": {
+    "target": "https://inventariomini4bm2-dhd0.onrender.com",
+    "secure": true,
+    "changeOrigin": true,
+    "logLevel": "debug"
+  }
+}
