@@ -1,0 +1,36 @@
+<div class="container mt-4">
+  <div class="d-flex justify-content-between align-items-center mb-3">
+    <h2>Lista de Productos</h2>
+    <a routerLink="/productoForm/0" class="btn btn-primary">+ Nuevo Producto</a>
+  </div>
+
+  <table class="table table-striped table-bordered">
+    <thead class="table-dark">
+      <tr>
+        <th>ID</th>
+        <th>Nombre</th>
+        <th>Precio</th>
+        <th>Existencia</th>
+        <th>Categoría</th>
+        <th>Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      @for (p of productos; track p.idProducto) {
+        <tr>
+          <td>{{ p.idProducto }}</td>
+          <td>{{ p.nombreProducto }}</td>
+          <td>{{ p.precioProducto | currency }}</td>
+          <td>{{ p.existencia }}</td>
+          <td>{{ p.idCategoria?.idCategoria }}</td>
+          <td>
+            <a [routerLink]="['/productoForm', p.idProducto]" class="btn btn-sm btn-warning me-2"
+              >Editar</a
+            >
+            <button (click)="eliminar(p.idProducto)" class="btn btn-sm btn-danger">Eliminar</button>
+          </td>
+        </tr>
+      }
+    </tbody>
+  </table>
+</div>
