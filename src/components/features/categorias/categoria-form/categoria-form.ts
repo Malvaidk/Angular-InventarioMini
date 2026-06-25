@@ -39,7 +39,7 @@ export class CategoriaForm implements OnInit {
   registrarCategoria(): void {
     this.service.crearCategoria(this.laCategoria()).subscribe({
       next: (lc) => {
-        this.router.navigate(['/listaDeCategoria']);
+        this.router.navigate(['/listaCategorias']);
         Swal.fire({
           title: 'Registrar Categoria',
           text: `La categoria ${lc.nombreCategoria} ha sido registrada correctamente!`,
@@ -55,7 +55,7 @@ export class CategoriaForm implements OnInit {
   actualizarCategoria(): void {
     this.service.actualizarCategoria(this.laCategoria()).subscribe({
       next: (lc) => {
-        this.router.navigate(['/listaDeCategoria']);
+        this.router.navigate(['/listaCategorias']);
         Swal.fire({
           title: ' Actualizar Categoria',
           text: `La categoria ${lc.nombreCategoria} ha sido actualizada correctamente!`,

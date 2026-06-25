@@ -6,7 +6,7 @@ import { Producto } from '../../model/producto';
 @Injectable({ providedIn: 'root' })
 export class ProductoService {
   private http = inject(HttpClient);
-  private readonly urlEndpoint = 'http://localhost:8085/api/v1/productos';
+  private readonly urlEndpoint = 'https://inventariomini4bm2-dhd0.onrender.com/api/v1/productos';
   private httpHeaders = new HttpHeaders({ 'Content-Type': 'application/json' });
 
   mostrarProductos(): Observable<Producto[]> {

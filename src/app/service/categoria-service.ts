@@ -9,12 +9,13 @@ import { Categoria } from '../../model/categoria';
 })
 export class CategoriaService {
   private http = inject(HttpClient);
-  private readonly urlEndpoint = "http://localhost:8085/api/v1/categorias/categoria";
+  private readonly urlEndpoint =
+    'https://inventariomini4bm2-dhd0.onrender.com/api/v1/categorias/categoria';
   private httpHeaders = new HttpHeaders({ 'Content-Type': 'application/json' });
 
   mostrarCategorias(): Observable<Categoria[]> {
     return this.http.get<Categoria[]>(this.urlEndpoint);
-    }
+  }
 
   leerCategoria(id: number): Observable<Categoria> {
     return this.http.get<Categoria>(`${this.urlEndpoint}/${id}`);
@@ -25,16 +26,15 @@ export class CategoriaService {
   }
 
   actualizarCategoria(categoria: Categoria): Observable<Categoria> {
-    return this.http.put<Categoria>(`${this.urlEndpoint}/${categoria.idCategoria}`, categoria, { headers: this.httpHeaders });
+    return this.http.put<Categoria>(`${this.urlEndpoint}/${categoria.idCategoria}`, categoria, {
+      headers: this.httpHeaders,
+    });
   }
 
   eliminarCategoria(id: number): Observable<Categoria> {
     return this.http.delete<Categoria>(`${this.urlEndpoint}/${id}`, { headers: this.httpHeaders });
   }
 
-
-
-  
   /*
   //Definir la URL del endpoint a trabajar
   private urlEndPoint: string = 'http://localhost:8085/api/v1/categorias';
